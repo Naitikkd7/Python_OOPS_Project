@@ -1,39 +1,28 @@
 from turtle import Turtle
 
-
-class Score:
-    def __init__(self):
-        self.score = 0
-
-        self.scoreboard = Turtle(visible=False)
-        self.scoreboard.penup()
-        self.scoreboard.color("white")
-        self.scoreboard.speed("fastest")
+class Scoreboard(Turtle):
+    def __init__(self, mid_x, y):
+        super().__init__()
+        self.mid_x = mid_x
+        self.y = y
+        self.color("white")
+        self.penup()
+        self.hideturtle()
+        self.l_score = 0
+        self.r_score = 0
         self.update_scoreboard()
-
-        self.message = Turtle(visible=False)
-        self.message.penup()
-        self.message.color("white")
-        self.message.speed("fastest")
 
     def update_scoreboard(self):
-        self.scoreboard.clear()
-        self.scoreboard.goto(0, 310)
-        self.scoreboard.write(
-            f"Score: {self.score}",
-            align="center",
-            font=("Courier", 18, "bold"),
-        )
+        self.clear()
+        self.goto(self.mid_x - 100, self.y)
+        self.write(self.l_score, align="center", font=("Courier", 30, "normal"))
+        self.goto(self.mid_x + 100, self.y)
+        self.write(self.r_score, align="center", font=("Courier", 30, "normal"))
 
-    def increase_score(self):
-        self.score += 1
+    def l_point(self):
+        self.l_score += 1
         self.update_scoreboard()
 
-    def game_over(self):
-        self.message.clear()
-        self.message.goto(0, 0)
-        self.message.write(
-            f"GAME OVER\nFinal score: {self.score}",
-            align="center",
-            font=("Courier", 24, "bold"),
-        )
+    def r_point(self):
+        self.r_score += 1
+        self.update_scoreboard()
